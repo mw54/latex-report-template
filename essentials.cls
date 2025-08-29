@@ -5,19 +5,8 @@
 % Load the 'article' class with a 12pt font size
 \LoadClass[12pt]{article}
 
-% Define custom commands for various document metadata
-\newcommand\@id{}
-\newcommand\@project{}
-\newcommand\@reportnum{}
-\newcommand\@subtitle{}
-\newcommand\@void{}
-\newcommand\@titlelinespread{1}
-
-% Define commands for setting metadata values
-\newcommand{\id}[1]{\def\@id{#1}}
-\newcommand{\project}[1]{\def\@project{#1}}
-\newcommand{\reportnum}[1]{\def\@reportnum{#1}}
-\newcommand{\subtitle}[1]{\def\@subtitle{#1}}
+% Define custom command
+\newcommand\@titlelinespread{0.85}
 
 % Include necessary packages
 \RequirePackage[a4paper,margin=1in]{geometry} % Set page margins
@@ -31,6 +20,7 @@
 \RequirePackage{float} % Improved interface for floating objects
 \RequirePackage{framed} % Support for left bars and frames
 \RequirePackage{enumitem} % Enhance support for enumeration labels
+\RequirePackage{setspace} % Set line spacing for title
 
 % Include optional packages
 \RequirePackage{multicol} % Multiple columns
@@ -46,7 +36,7 @@
 
 % Set fonts for main text and captions
 \setmainfont{Times} % Set main font to Times New Roman
-\setsansfont{Helvetica Neue} % Set sans-serif font
+\setsansfont{Helvetica Neue}[Scale=MatchLowercase] % Set sans-serif font
 \setmonofont{Menlo}[Scale=MatchLowercase] % Set monospace font
 
 % Configure code block style
@@ -95,6 +85,7 @@
 }
 
 % Set the default page style to 'plain'
+\pagestyle{plain}
 \geometry{
     left = 0.6in, % Set left margin to 0.6 inches
     right = 0.6in, % Set right margin to 0.6 inches
@@ -106,19 +97,17 @@
 % Redefine the '\maketitle' command to customize the title
 \renewcommand\maketitle{
     \thispagestyle{plain} % Set title page style to plain
-    \linespread{\@titlelinespread} % Set line spread for title
     % Title section formatting
     \begin{flushleft}
         \begin{leftbar}
-            \sffamily\large\bfseries\ifx\@project\@void\else\@project\quad\fi\ifx\@reportnum\@void\else No.\ \@reportnum\fi\par
-            \vskip 0.1em
-            \sffamily\LARGE\bfseries\@title\par
-            \vskip 0.1em
-            \Large\@subtitle\par
-            \vskip -0.7em
-            \rule{\linewidth}{1.5pt} % Horizontal line
-            \vskip 0.1em
-            \sffamily\small\textbf{\@author}\ifx\@id\@void\else\ \textbf{|}\ \@id\fi\par
+            \begin{spacing}{\@titlelinespread}
+                \sffamily\huge\bfseries\@title\par
+                \vskip -0.65em
+                \rule{\linewidth}{1.5pt} % Horizontal line
+                \vskip 0.15em
+                \sffamily\normalsize\textbf{\@author}\par
+                \vskip 0.2em
+            \end{spacing}
         \end{leftbar}
     \end{flushleft}
 \par
@@ -129,7 +118,7 @@
     \list{}{\leftmargin=1em \rightmargin=1em}
     \item\relax
     \textbf{\small\textsf\abstractname}
-    \;\small
+    \small
 }{\endlist}
 
 % Define 'keywords' environment
@@ -137,7 +126,7 @@
     \list{}{\leftmargin=1em \rightmargin=1em}
     \item\relax
     \textbf{\small\textsf{Keywords}}
-    \;\small
+    \small
 }{\endlist\smallskip}
 
 % Define quote and quotation environments with a left bar
@@ -165,14 +154,14 @@
 
 % Customize the appearance of section and subsection titles using 'titlesec'
 \titleformat{\section}
-    {\sffamily\bfseries\Large}
+    {\sffamily\bfseries\LARGE}
     {\thesection}
-    {1em}
+    {0.5em}
     {}
     [{\titlerule[1pt]}] % Add a rule under the section title
 
 \titleformat{\subsection}
     {\sffamily\bfseries\large}
     {\thesubsection}
-    {1em}
+    {0.5em}
     {}

@@ -49,8 +49,8 @@
 
 % Set fonts for main text and captions
 \setmainfont{Times} % Set main font to Times New Roman
-\setsansfont{Helvetica Neue} % Set sans-serif font
-\setmonofont{Menlo} % Set monospace font
+\setsansfont{Helvetica Neue}[Scale=MatchLowercase] % Set sans-serif font
+\setmonofont{Menlo}[Scale=MatchLowercase] % Set monospace font
 
 % Configure code block style
 \tcbuselibrary{listings}
